@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__Desktop_Commander__get_file_info",
+      "Bash(ls:*)",
+      "Bash(wc:*)"
+    ]
+  }
+}

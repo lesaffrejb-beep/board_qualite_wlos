@@ -1,0 +1,542 @@
+{
+  "matrice_risque": {
+    "P0": {
+      "conforme": 0,
+      "non_conforme": 0,
+      "en_cours": 0,
+      "na": 0
+    },
+    "P1": {
+      "conforme": 85,
+      "non_conforme": 278,
+      "en_cours": 130,
+      "na": 134
+    },
+    "P2": {
+      "conforme": 701,
+      "non_conforme": 1913,
+      "en_cours": 1418,
+      "na": 907
+    },
+    "P3": {
+      "conforme": 611,
+      "non_conforme": 756,
+      "en_cours": 9643,
+      "na": 507
+    }
+  },
+  "classement_sites": [
+    {
+      "site": "L'Orée de l'Océan",
+      "taux_conformite_brut": 8.69,
+      "taux_conformite_pondere": 72.57,
+      "taux_nc": 20.93,
+      "indice_risque": 84.03,
+      "score_maturite": 40.1,
+      "coefficient_dispersion": 0.173,
+      "nb_bloquants": 15,
+      "p1_non_conformes": 38,
+      "score_global": 52.52,
+      "rang": 1
+    },
+    {
+      "site": "Anduze",
+      "taux_conformite_brut": 15.78,
+      "taux_conformite_pondere": 66.19,
+      "taux_nc": 24.4,
+      "indice_risque": 92.5,
+      "score_maturite": 44.02,
+      "coefficient_dispersion": 0.502,
+      "nb_bloquants": 15,
+      "p1_non_conformes": 34,
+      "score_global": 46.16,
+      "rang": 2
+    },
+    {
+      "site": "Séveilles",
+      "taux_conformite_brut": 30.33,
+      "taux_conformite_pondere": 30.11,
+      "taux_nc": 9.21,
+      "indice_risque": 32.99,
+      "score_maturite": 58.85,
+      "coefficient_dispersion": 0.85,
+      "nb_bloquants": 29,
+      "p1_non_conformes": 13,
+      "score_global": 44.6,
+      "rang": 3
+    },
+    {
+      "site": "Saint Martin de Ré 2026",
+      "taux_conformite_brut": 3.09,
+      "taux_conformite_pondere": 60.8,
+      "taux_nc": 21.7,
+      "indice_risque": 85.0,
+      "score_maturite": 38.39,
+      "coefficient_dispersion": 0.465,
+      "nb_bloquants": 33,
+      "p1_non_conformes": 21,
+      "score_global": 44.19,
+      "rang": 4
+    },
+    {
+      "site": "La Roque sur Cèze",
+      "taux_conformite_brut": 13.01,
+      "taux_conformite_pondere": 56.87,
+      "taux_nc": 19.06,
+      "indice_risque": 71.53,
+      "score_maturite": 45.04,
+      "coefficient_dispersion": 0.818,
+      "nb_bloquants": 20,
+      "p1_non_conformes": 27,
+      "score_global": 43.77,
+      "rang": 5
+    },
+    {
+      "site": "Saint Cybranet",
+      "taux_conformite_brut": 5.47,
+      "taux_conformite_pondere": 89.37,
+      "taux_nc": 35.74,
+      "indice_risque": 132.99,
+      "score_maturite": 33.41,
+      "coefficient_dispersion": 0.59,
+      "nb_bloquants": 3,
+      "p1_non_conformes": 39,
+      "score_global": 43.27,
+      "rang": 6
+    },
+    {
+      "site": "Saint Martin de Ré",
+      "taux_conformite_brut": 1.55,
+      "taux_conformite_pondere": 54.87,
+      "taux_nc": 19.7,
+      "indice_risque": 78.82,
+      "score_maturite": 38.8,
+      "coefficient_dispersion": 0.489,
+      "nb_bloquants": 33,
+      "p1_non_conformes": 23,
+      "score_global": 42.93,
+      "rang": 7
+    },
+    {
+      "site": "Biscarrosse Lac",
+      "taux_conformite_brut": 6.12,
+      "taux_conformite_pondere": 37.0,
+      "taux_nc": 13.91,
+      "indice_risque": 61.53,
+      "score_maturite": 44.78,
+      "coefficient_dispersion": 0.528,
+      "nb_bloquants": 24,
+      "p1_non_conformes": 33,
+      "score_global": 40.65,
+      "rang": 8
+    },
+    {
+      "site": "Marennes Oléron",
+      "taux_conformite_brut": 3.03,
+      "taux_conformite_pondere": 27.62,
+      "taux_nc": 8.89,
+      "indice_risque": 37.22,
+      "score_maturite": 45.71,
+      "coefficient_dispersion": 0.843,
+      "nb_bloquants": 13,
+      "p1_non_conformes": 25,
+      "score_global": 38.89,
+      "rang": 9
+    },
+    {
+      "site": "Pornic 2026",
+      "taux_conformite_brut": 1.16,
+      "taux_conformite_pondere": 27.58,
+      "taux_nc": 10.95,
+      "indice_risque": 43.75,
+      "score_maturite": 43.84,
+      "coefficient_dispersion": 0.798,
+      "nb_bloquants": 30,
+      "p1_non_conformes": 13,
+      "score_global": 37.45,
+      "rang": 10
+    },
+    {
+      "site": "Les Ponts de Cé",
+      "taux_conformite_brut": 1.74,
+      "taux_conformite_pondere": 14.86,
+      "taux_nc": 5.28,
+      "indice_risque": 29.86,
+      "score_maturite": 47.22,
+      "coefficient_dispersion": 1.043,
+      "nb_bloquants": 35,
+      "p1_non_conformes": 12,
+      "score_global": 34.14,
+      "rang": 11
+    }
+  ],
+  "stats_themes": {
+    "AFF": {
+      "conforme": 271,
+      "non_conforme": 352,
+      "en_cours": 1624,
+      "na": 184,
+      "total": 2431,
+      "obtenu": 726.0,
+      "possible": 0,
+      "p1_nc": 14,
+      "p1_total": 22,
+      "nb_sites": 11
+    },
+    "EXP": {
+      "conforme": 199,
+      "non_conforme": 368,
+      "en_cours": 976,
+      "na": 371,
+      "total": 1914,
+      "obtenu": 658.0,
+      "possible": 0,
+      "p1_nc": 14,
+      "p1_total": 22,
+      "nb_sites": 11
+    },
+    "IMA": {
+      "conforme": 218,
+      "non_conforme": 735,
+      "en_cours": 696,
+      "na": 232,
+      "total": 1881,
+      "obtenu": 1527.0,
+      "possible": 0,
+      "p1_nc": 10,
+      "p1_total": 22,
+      "nb_sites": 11
+    },
+    "QUA": {
+      "conforme": 63,
+      "non_conforme": 279,
+      "en_cours": 1489,
+      "na": 83,
+      "total": 1914,
+      "obtenu": 639.0,
+      "possible": 0,
+      "p1_nc": 21,
+      "p1_total": 33,
+      "nb_sites": 11
+    },
+    "RES": {
+      "conforme": 2,
+      "non_conforme": 12,
+      "en_cours": 1867,
+      "na": 33,
+      "total": 1914,
+      "obtenu": 29.0,
+      "possible": 0,
+      "p1_nc": 0,
+      "p1_total": 0,
+      "nb_sites": 11
+    },
+    "RH": {
+      "conforme": 126,
+      "non_conforme": 268,
+      "en_cours": 1463,
+      "na": 57,
+      "total": 1914,
+      "obtenu": 387.0,
+      "possible": 0,
+      "p1_nc": 0,
+      "p1_total": 0,
+      "nb_sites": 11
+    },
+    "SEC": {
+      "conforme": 340,
+      "non_conforme": 753,
+      "en_cours": 1636,
+      "na": 472,
+      "total": 3201,
+      "obtenu": 1688.0,
+      "possible": 0,
+      "p1_nc": 219,
+      "p1_total": 528,
+      "nb_sites": 11
+    },
+    "SLO": {
+      "conforme": 178,
+      "non_conforme": 180,
+      "en_cours": 1440,
+      "na": 116,
+      "total": 1914,
+      "obtenu": 0,
+      "possible": 0,
+      "p1_nc": 0,
+      "p1_total": 0,
+      "nb_sites": 11
+    }
+  },
+  "top_risques": [
+    {
+      "code": "SEC-7",
+      "nb_sites": 9,
+      "sites": [
+        "Anduze",
+        "Biscarrosse Lac",
+        "L'Orée de l'Océan",
+        "La Roque sur Cèze",
+        "Les Ponts de Cé",
+        "Marennes Oléron",
+        "Pornic 2026",
+        "Saint Cybranet",
+        "Séveilles"
+      ],
+      "theme": "SEC",
+      "priorite": "P1",
+      "critere": "Le contrôle obligatoire est programmé avant ouverture."
+    },
+    {
+      "code": "SEC-8",
+      "nb_sites": 9,
+      "sites": [
+        "Anduze",
+        "Biscarrosse Lac",
+        "L'Orée de l'Océan",
+        "La Roque sur Cèze",
+        "Les Ponts de Cé",
+        "Marennes Oléron",
+        "Pornic 2026",
+        "Saint Cybranet",
+        "Séveilles"
+      ],
+      "theme": "SEC",
+      "priorite": "P1",
+      "critere": "Les réserves sont levées."
+    },
+    {
+      "code": "SEC-9",
+      "nb_sites": 9,
+      "sites": [
+        "Anduze",
+        "Biscarrosse Lac",
+        "L'Orée de l'Océan",
+        "La Roque sur Cèze",
+        "Les Ponts de Cé",
+        "Marennes Oléron",
+        "Pornic 2026",
+        "Saint Cybranet",
+        "Séveilles"
+      ],
+      "theme": "SEC",
+      "priorite": "P1",
+      "critere": "Le registre de sécurité est émargé (signature du prestataire + tampon obligatoire + date)."
+    },
+    {
+      "code": "SEC-11",
+      "nb_sites": 9,
+      "sites": [
+        "Anduze",
+        "Biscarrosse Lac",
+        "L'Orée de l'Océan",
+        "Les Ponts de Cé",
+        "Marennes Oléron",
+        "Pornic 2026",
+        "Saint Cybranet",
+        "Saint Martin de Ré 2026",
+        "Séveilles"
+      ],
+      "theme": "SEC",
+      "priorite": "P1",
+      "critere": "Les extincteurs sont en nombre suffisant."
+    },
+    {
+      "code": "SEC-13",
+      "nb_sites": 9,
+      "sites": [
+        "Anduze",
+        "Biscarrosse Lac",
+        "L'Orée de l'Océan",
+        "La Roque sur Cèze",
+        "Les Ponts de Cé",
+        "Marennes Oléron",
+        "Pornic 2026",
+        "Saint Cybranet",
+        "Séveilles"
+      ],
+      "theme": "SEC",
+      "priorite": "P1",
+      "critere": "Les extincteurs sont tous accessibles et dégagés."
+    },
+    {
+      "code": "SEC-15",
+      "nb_sites": 9,
+      "sites": [
+        "Anduze",
+        "Biscarrosse Lac",
+        "L'Orée de l'Océan",
+        "La Roque sur Cèze",
+        "Les Ponts de Cé",
+        "Marennes Oléron",
+        "Pornic 2026",
+        "Saint Cybranet",
+        "Séveilles"
+      ],
+      "theme": "SEC",
+      "priorite": "P1",
+      "critere": "Tous les extincteurs sont plombés."
+    },
+    {
+      "code": "SEC-49",
+      "nb_sites": 9,
+      "sites": [
+        "Anduze",
+        "Biscarrosse Lac",
+        "L'Orée de l'Océan",
+        "La Roque sur Cèze",
+        "Les Ponts de Cé",
+        "Marennes Oléron",
+        "Pornic 2026",
+        "Saint Cybranet",
+        "Séveilles"
+      ],
+      "theme": "SEC",
+      "priorite": "P1",
+      "critere": "Le contrôle est programmé avant ouverture."
+    },
+    {
+      "code": "SEC-50",
+      "nb_sites": 9,
+      "sites": [
+        "Anduze",
+        "Biscarrosse Lac",
+        "L'Orée de l'Océan",
+        "La Roque sur Cèze",
+        "Les Ponts de Cé",
+        "Marennes Oléron",
+        "Pornic 2026",
+        "Saint Cybranet",
+        "Séveilles"
+      ],
+      "theme": "SEC",
+      "priorite": "P1",
+      "critere": "Le registre de sécurité est émargé (signature du prestataire + tampon obligatoire + date)."
+    },
+    {
+      "code": "AFF-26",
+      "nb_sites": 8,
+      "sites": [
+        "Anduze",
+        "Biscarrosse Lac",
+        "L'Orée de l'Océan",
+        "Les Ponts de Cé",
+        "Marennes Oléron",
+        "Saint Cybranet",
+        "Saint Martin de Ré 2026",
+        "Saint Martin de Ré"
+      ],
+      "theme": "AFF",
+      "priorite": "P1",
+      "critere": "Registre sécurité incendie."
+    },
+    {
+      "code": "QUA-21",
+      "nb_sites": 8,
+      "sites": [
+        "Anduze",
+        "Biscarrosse Lac",
+        "L'Orée de l'Océan",
+        "La Roque sur Cèze",
+        "Marennes Oléron",
+        "Saint Cybranet",
+        "Saint Martin de Ré 2026",
+        "Saint Martin de Ré"
+      ],
+      "theme": "QUA",
+      "priorite": "P1",
+      "critere": "Le TPE est présent et en état de fonctionnement"
+    },
+    {
+      "code": "QUA-22",
+      "nb_sites": 8,
+      "sites": [
+        "Anduze",
+        "Biscarrosse Lac",
+        "L'Orée de l'Océan",
+        "La Roque sur Cèze",
+        "Marennes Oléron",
+        "Saint Cybranet",
+        "Saint Martin de Ré 2026",
+        "Saint Martin de Ré"
+      ],
+      "theme": "QUA",
+      "priorite": "P1",
+      "critere": "Présence d'un fond de caisse"
+    },
+    {
+      "code": "SEC-14",
+      "nb_sites": 8,
+      "sites": [
+        "Anduze",
+        "L'Orée de l'Océan",
+        "La Roque sur Cèze",
+        "Les Ponts de Cé",
+        "Marennes Oléron",
+        "Pornic 2026",
+        "Saint Cybranet",
+        "Séveilles"
+      ],
+      "theme": "SEC",
+      "priorite": "P1",
+      "critere": "Les extincteurs sont tous correctement fixés."
+    },
+    {
+      "code": "SEC-146",
+      "nb_sites": 8,
+      "sites": [
+        "Anduze",
+        "L'Orée de l'Océan",
+        "La Roque sur Cèze",
+        "Marennes Oléron",
+        "Pornic 2026",
+        "Saint Cybranet",
+        "Saint Martin de Ré 2026",
+        "Saint Martin de Ré"
+      ],
+      "theme": "SEC",
+      "priorite": "P1",
+      "critere": "1 Extincteur est présent"
+    },
+    {
+      "code": "SEC-188",
+      "nb_sites": 8,
+      "sites": [
+        "Anduze",
+        "Biscarrosse Lac",
+        "La Roque sur Cèze",
+        "Marennes Oléron",
+        "Saint Cybranet",
+        "Saint Martin de Ré 2026",
+        "Saint Martin de Ré",
+        "Séveilles"
+      ],
+      "theme": "SEC",
+      "priorite": "P1",
+      "critere": "Il n'y a pas de rallonges en cascade ou prises multiples à risque sur l'ensemble du camping."
+    },
+    {
+      "code": "SEC-189",
+      "nb_sites": 8,
+      "sites": [
+        "Anduze",
+        "Biscarrosse Lac",
+        "La Roque sur Cèze",
+        "Marennes Oléron",
+        "Saint Cybranet",
+        "Saint Martin de Ré 2026",
+        "Saint Martin de Ré",
+        "Séveilles"
+      ],
+      "theme": "SEC",
+      "priorite": "P1",
+      "critere": "Les fils électriques sont complètement déroulées pour eviter toute surchauffe."
+    }
+  ],
+  "formules": {
+    "indice_risque": "(P1_NC×3 + P1_EC×2 + P2_NC×1.5 + Oblig_NC×2) / Total_P1_P2_Oblig",
+    "score_maturite": "(Conf×1 + EC×0.5 + NA×0.3) / Total × 100",
+    "score_global": "0.4×Taux_Pondéré + 0.3×Maturité + 0.2×(100-Risque) + 0.1×Homogénéité",
+    "coefficient_dispersion": "Écart-type / Moyenne (thèmes)"
+  }
+}
