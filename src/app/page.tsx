@@ -1,34 +1,61 @@
-import { redirect } from 'next/navigation'
-import { createClient } from '@/lib/supabase/server'
+'use client'
 
-export default async function HomePage() {
-    // Check if Supabase is configured
-    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
-        return (
-            <div style={{ padding: '2rem', fontFamily: 'system-ui' }}>
-                <h1>⚠️ Configuration Error</h1>
-                <p>Supabase environment variables are not configured.</p>
-                <p>Please set:</p>
-                <ul>
-                    <li><code>NEXT_PUBLIC_SUPABASE_URL</code></li>
-                    <li><code>NEXT_PUBLIC_SUPABASE_ANON_KEY</code></li>
-                </ul>
-                <p style={{ marginTop: '1rem', padding: '1rem', background: '#fff3cd', borderRadius: '4px' }}>
-                    <strong>Note:</strong> Make sure you&apos;re using <code>NEXT_PUBLIC_</code> prefix, not <code>VITE_</code>
-                </p>
-            </div>
-        )
-    }
+import { useEffect } from 'react'
+import { useRouter } from 'next/navigation'
+import { createClient } from '@/lib/supabase/client'
+import { isAdminLoggedIn } from '@/lib/auth'
 
+export default function HomePage() {
+    const router = useRouter()
     const supabase = createClient()
 
-    const { data: { user } } = await supabase.auth.getUser()
+    useEffect(() => {
+        const checkAuth = async () => {
+            // Check admin session first (localStorage)
+            if (isAdminLoggedIn()) {
+                router.push('/dashboard')
+                return
+            }
 
-    if (user) {
-        // User is authenticated, redirect to dashboard
-        redirect('/dashboard')
-    } else {
-        // Not authenticated, redirect to login
-        redirect('/login')
-    }
+            // Check Supabase auth
+            const { data: { user } } = await supabase.auth.getUser()
+            
+            if (user) {
+                router.push('/dashboard')
+            } else {
+                router.push('/login')
+            }
+        }
+
+        checkAuth()
+    }, [router, supabase])
+
+    // Loading state
+    return (
+        <div style={{ 
+            minHeight: '100vh', 
+            display: 'flex', 
+            alignItems: 'center', 
+            justifyContent: 'center',
+            background: 'var(--sv-beige-100)'
+        }}>
+            <div style={{ textAlign: 'center' }}>
+                <div style={{
+                    width: '48px',
+                    height: '48px',
+                    borderRadius: '50%',
+                    border: '3px solid var(--sv-beige-300)',
+                    borderTopColor: 'var(--sv-green-500)',
+                    animation: 'spin 1s linear infinite',
+                    margin: '0 auto 1rem'
+                }} />
+                <p style={{ color: 'var(--sv-gray-600)' }}>Chargement...</p>
+            </div>
+            <style jsx>{`
+                @keyframes spin {
+                    to { transform: rotate(360deg); }
+                }
+            `}</style>
+        </div>
+    )
 }

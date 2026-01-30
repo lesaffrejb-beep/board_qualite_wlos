@@ -19,6 +19,7 @@ import {
 } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { PieChart, Pie, Cell, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip } from 'recharts'
+import { isAdminLoggedIn, logoutAdmin } from '@/lib/auth'
 
 /* ==============================================
    TYPES
@@ -38,9 +39,28 @@ export default function DashboardPage() {
     const router = useRouter()
     const supabase = createClient()
 
-    // -- Data Fetching --
+    // -- Auth Check & Data Fetching --
     useEffect(() => {
-        loadSites()
+        // Check auth
+        const checkAuth = async () => {
+            const adminLoggedIn = isAdminLoggedIn()
+            if (adminLoggedIn) {
+                // Admin is logged in, continue loading data
+                loadSites()
+                return
+            }
+            
+            // Check Supabase auth
+            const { data: { user } } = await supabase.auth.getUser()
+            if (!user) {
+                router.push('/login')
+                return
+            }
+            
+            loadSites()
+        }
+        
+        checkAuth()
 
         // Realtime subscription
         const channel = supabase
@@ -77,6 +97,13 @@ export default function DashboardPage() {
     }
 
     async function handleSignOut() {
+        // Check if admin first
+        if (isAdminLoggedIn()) {
+            logoutAdmin()
+            router.push('/login')
+            return
+        }
+        // Otherwise sign out from Supabase
         await supabase.auth.signOut()
         router.push('/login')
     }
