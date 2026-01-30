@@ -2,9 +2,37 @@ import { NextResponse, type NextRequest } from 'next/server'
 import { createServerClient, type CookieOptions } from '@supabase/ssr'
 
 export async function middleware(request: NextRequest) {
+    // Define CSP header
+    // script-src: 'unsafe-eval' is required because libraries like react-pdf use eval() or new Function()
+    const cspHeader = `
+    default-src 'self';
+    script-src 'self' 'unsafe-eval' 'unsafe-inline' blob:;
+    worker-src 'self' blob:;
+    style-src 'self' 'unsafe-inline';
+    img-src 'self' blob: data: ${process.env.NEXT_PUBLIC_SUPABASE_URL};
+    connect-src 'self' ${process.env.NEXT_PUBLIC_SUPABASE_URL};
+    font-src 'self';
+    object-src 'none';
+    base-uri 'self';
+    form-action 'self';
+    frame-ancestors 'none';
+    block-all-mixed-content;
+    upgrade-insecure-requests;
+    `
+    // Replace newlines with spaces
+    const contentSecurityPolicyHeaderValue = cspHeader
+        .replace(/\s{2,}/g, ' ')
+        .trim()
+
+    const requestHeaders = new Headers(request.headers)
+    requestHeaders.set(
+        'Content-Security-Policy',
+        contentSecurityPolicyHeaderValue
+    )
+
     let response = NextResponse.next({
         request: {
-            headers: request.headers,
+            headers: requestHeaders,
         },
     })
 
@@ -24,7 +52,7 @@ export async function middleware(request: NextRequest) {
                     })
                     response = NextResponse.next({
                         request: {
-                            headers: request.headers,
+                            headers: requestHeaders,
                         },
                     })
                     response.cookies.set({
@@ -41,7 +69,7 @@ export async function middleware(request: NextRequest) {
                     })
                     response = NextResponse.next({
                         request: {
-                            headers: request.headers,
+                            headers: requestHeaders,
                         },
                     })
                     response.cookies.set({
@@ -69,6 +97,12 @@ export async function middleware(request: NextRequest) {
         // Redirect to dashboard if already logged in
         return NextResponse.redirect(new URL('/dashboard', request.url))
     }
+
+    // Set CSP header on the response
+    response.headers.set(
+        'Content-Security-Policy',
+        contentSecurityPolicyHeaderValue
+    )
 
     return response
 }
