@@ -3,9 +3,6 @@
 -- Audit Qualité - Base de données
 -- =====================================================
 
--- Activer RLS (Row Level Security) sur toutes les tables
-ALTER DATABASE postgres SET "app.settings.jwt_secret" TO 'your-jwt-secret';
-
 -- =====================================================
 -- 1. TABLE: SITES
 -- Les 11 campings Slow Village
