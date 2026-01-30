@@ -85,13 +85,21 @@
         btnViewDashboard: document.getElementById('btn-view-dashboard'),
         btnNewAudit: document.getElementById('btn-new-audit'),
         
-        // Auth site modal
+        // Auth site modal (pour audit)
         authSiteModal: document.getElementById('auth-site-modal'),
         authSiteName: document.getElementById('auth-site-name'),
         authSitePassword: document.getElementById('auth-site-password'),
         authSiteError: document.getElementById('auth-site-error'),
         btnAuthSiteSubmit: document.getElementById('btn-auth-site-submit'),
         btnAuthSiteCancel: document.getElementById('btn-auth-site-cancel'),
+        
+        // Auth admin modal (pour dashboard)
+        authAdminModal: document.getElementById('auth-admin-modal'),
+        authAdminContext: document.getElementById('auth-admin-context'),
+        authAdminPassword: document.getElementById('auth-admin-password'),
+        authAdminError: document.getElementById('auth-admin-error'),
+        btnAuthAdminSubmit: document.getElementById('btn-auth-admin-submit'),
+        btnAuthAdminCancel: document.getElementById('btn-auth-admin-cancel'),
         
         // Input screen
         inputSiteName: document.getElementById('input-site-name'),
@@ -320,6 +328,45 @@
     function hideSiteAuthModal() {
         elements.authSiteModal.classList.remove('active');
         state.pendingSite = null;
+    }
+
+    // ========== MODAL ADMIN (DASHBOARD) ==========
+    
+    function showAdminAuthModal() {
+        const contextText = state.dashboardSite 
+            ? state.dashboardSite.nom 
+            : 'Vue Direction - Tous les sites';
+        
+        elements.authAdminContext.textContent = contextText;
+        elements.authAdminPassword.value = '';
+        elements.authAdminError.textContent = '';
+        elements.authAdminModal.classList.add('active');
+        elements.authAdminPassword.focus();
+    }
+
+    function hideAdminAuthModal() {
+        elements.authAdminModal.classList.remove('active');
+    }
+
+    async function authenticateAdmin() {
+        const password = elements.authAdminPassword.value;
+        
+        if (password === CONFIG.ADMIN_PASSWORD || password === CONFIG.SITE_PASSWORD) {
+            // Succès
+            state.isAdminAuthenticated = true;
+            hideAdminAuthModal();
+            elements.authAdminPassword.value = '';
+            
+            // Aller au dashboard
+            showScreen('dashboard');
+        } else {
+            // Erreur
+            elements.authAdminError.textContent = 'Mot de passe incorrect';
+            elements.authAdminPassword.classList.add('shake');
+            setTimeout(() => {
+                elements.authAdminPassword.classList.remove('shake');
+            }, 500);
+        }
     }
 
     async function authenticateSite() {
@@ -753,11 +800,32 @@
     // EVENT LISTENERS
     // ==========================================
     function setupEventListeners() {
-        // Auth site modal
+        // Boutons principaux
+        elements.btnViewDashboard?.addEventListener('click', () => {
+            // Afficher le modal admin au lieu d'aller direct au dashboard
+            showAdminAuthModal();
+        });
+        
+        elements.btnNewAudit?.addEventListener('click', () => {
+            if (!state.currentSite) {
+                showToast('Veuillez d\'abord sélectionner un site');
+                return;
+            }
+            showSiteAuthModal(state.currentSite);
+        });
+        
+        // Auth site modal (pour audit)
         elements.btnAuthSiteSubmit?.addEventListener('click', authenticateSite);
         elements.btnAuthSiteCancel?.addEventListener('click', hideSiteAuthModal);
         elements.authSitePassword?.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') authenticateSite();
+        });
+        
+        // Auth admin modal (pour dashboard)
+        elements.btnAuthAdminSubmit?.addEventListener('click', authenticateAdmin);
+        elements.btnAuthAdminCancel?.addEventListener('click', hideAdminAuthModal);
+        elements.authAdminPassword?.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') authenticateAdmin();
         });
         
         // Input screen

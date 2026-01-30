@@ -44,10 +44,32 @@
 
 /* Modal Header */
 .modal-header {
-    background: linear-gradient(135deg, var(--sv-green-500) 0%, var(--sv-green-600) 100%);
     color: var(--sv-white);
     padding: var(--space-xl);
     text-align: center;
+    position: relative;
+}
+
+/* Header pour Site (Audit) - Vert */
+.modal-header.site {
+    background: linear-gradient(135deg, var(--sv-green-500) 0%, var(--sv-green-600) 100%);
+}
+
+/* Header pour Admin (Dashboard) - Terracotta */
+.modal-header.admin {
+    background: linear-gradient(135deg, var(--sv-terracotta-500) 0%, var(--sv-terracotta-600) 100%);
+}
+
+.modal-icon-wrapper {
+    width: 64px;
+    height: 64px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto var(--space-md);
+    backdrop-filter: blur(4px);
 }
 
 .modal-header h3 {
@@ -158,6 +180,15 @@
     background: var(--sv-terracotta-400);
     transform: translateY(-2px);
     box-shadow: var(--shadow-md);
+}
+
+/* Bouton Admin spécifique */
+.btn-modal-primary.admin {
+    background: var(--sv-terracotta-500);
+}
+
+.btn-modal-primary.admin:hover {
+    background: var(--sv-terracotta-400);
 }
 
 /* ==========================================

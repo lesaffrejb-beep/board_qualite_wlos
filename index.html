@@ -84,15 +84,21 @@
         </div>
     </div>
 
-    <!-- MODAL AUTH SITE -->
+    <!-- MODAL AUTH SITE (pour les directeurs) -->
     <div class="modal-overlay" id="auth-site-modal">
         <div class="modal auth-modal">
-            <div class="modal-header">
-                <h3>Accès sécurisé</h3>
+            <div class="modal-header site">
+                <div class="modal-icon-wrapper">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/>
+                        <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                    </svg>
+                </div>
+                <h3>Audit Qualité</h3>
                 <p class="modal-site-name" id="auth-site-name">Nom du site</p>
             </div>
             <div class="modal-body">
-                <p class="modal-info">Cet espace est réservé aux directeurs de site.<br>Mot de passe fourni par la direction.</p>
+                <p class="modal-info">Espace réservé aux directeurs de site.<br>Mot de passe fourni par la direction.</p>
                 <div class="password-input-wrapper">
                     <input type="password" id="auth-site-password" placeholder="Mot de passe" autocomplete="off">
                     <span class="input-icon">🔒</span>
@@ -102,6 +108,34 @@
             <div class="modal-footer">
                 <button class="btn-modal-secondary" id="btn-auth-site-cancel">Annuler</button>
                 <button class="btn-modal-primary" id="btn-auth-site-submit">Accéder au formulaire</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL AUTH ADMIN (pour le tableau de bord) -->
+    <div class="modal-overlay" id="auth-admin-modal">
+        <div class="modal auth-modal">
+            <div class="modal-header admin">
+                <div class="modal-icon-wrapper">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                        <path d="M7 11V7a5 5 0 0110 0v4"/>
+                    </svg>
+                </div>
+                <h3>Tableau de Bord</h3>
+                <p class="modal-site-name" id="auth-admin-context">Vue Direction</p>
+            </div>
+            <div class="modal-body">
+                <p class="modal-info">Espace réservé à la direction.<br>Mot de passe administrateur requis.</p>
+                <div class="password-input-wrapper">
+                    <input type="password" id="auth-admin-password" placeholder="Mot de passe admin" autocomplete="off">
+                    <span class="input-icon">🔐</span>
+                </div>
+                <span class="password-error" id="auth-admin-error"></span>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-modal-secondary" id="btn-auth-admin-cancel">Annuler</button>
+                <button class="btn-modal-primary admin" id="btn-auth-admin-submit">Accéder au board</button>
             </div>
         </div>
     </div>
