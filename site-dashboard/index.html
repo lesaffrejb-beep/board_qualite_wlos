@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/auth.css">
 </head>
 <body>
     <!-- ÉCRAN 1: FORMULAIRE SÉLECTION SITE -->
@@ -80,6 +81,28 @@
             <footer class="form-footer">
                 <p>11 sites audités &bull; 17 083 critères analysés &bull; Janvier 2026</p>
             </footer>
+        </div>
+    </div>
+
+    <!-- MODAL AUTH SITE -->
+    <div class="modal-overlay" id="auth-site-modal">
+        <div class="modal auth-modal">
+            <div class="modal-header">
+                <h3>Accès sécurisé</h3>
+                <p class="modal-site-name" id="auth-site-name">Nom du site</p>
+            </div>
+            <div class="modal-body">
+                <p class="modal-info">Cet espace est réservé aux directeurs de site.<br>Mot de passe fourni par la direction.</p>
+                <div class="password-input-wrapper">
+                    <input type="password" id="auth-site-password" placeholder="Mot de passe" autocomplete="off">
+                    <span class="input-icon">🔒</span>
+                </div>
+                <span class="password-error" id="auth-site-error"></span>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-modal-secondary" id="btn-auth-site-cancel">Annuler</button>
+                <button class="btn-modal-primary" id="btn-auth-site-submit">Accéder au formulaire</button>
+            </div>
         </div>
     </div>
 
@@ -475,6 +498,9 @@
         </div>
     </div>
 
+    <!-- Supabase Client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+    <script src="js/env-config.js"></script>
     <script src="js/data.js"></script>
     <script src="js/app.js"></script>
 </body>
