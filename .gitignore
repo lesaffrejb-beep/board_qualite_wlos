@@ -1,47 +1,36 @@
-# ========================================
-# FICHIERS SENSIBLES - NE PAS COMMITTER
-# ========================================
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
 
-# Environnement
-.env
-.env.local
-.env.*.local
+# testing
+/coverage
 
-# Fichiers Excel (données confidentielles)
-*.xlsx
-*.xls
+# next.js
+/.next/
+/out/
 
-# Python
-__pycache__/
-*.py[cod]
-*$py.class
-*.so
-.Python
-*.egg-info/
-dist/
-build/
+# production
+/build
 
-# Node
-node_modules/
+# misc
+.DS_Store
+*.pem
+
+# debug
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# IDEs
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
+# local env files
+.env*.local
 
-# OS
-.DS_Store
-Thumbs.db
+# vercel
+.vercel
 
-# Logs
-*.log
+# typescript
+*.tsbuildinfo
+next-env.d.ts
 
-# Temp
-tmp/
-temp/
-*.tmp
+# backups
+*.bak
