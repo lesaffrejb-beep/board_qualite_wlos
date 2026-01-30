@@ -1,0 +1,22 @@
+{
+  "name": "slow-village-qualite-v2",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "next": "14.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "@supabase/supabase-js": "^2.38.0",
+    "@supabase/auth-helpers-nextjs": "^0.8.0",
+    "recharts": "^2.9.0",
+    "lucide-react": "^0.292.0",
+    "tailwindcss": "^3.3.0",
+    "clsx": "^2.0.0"
+  }
+}

@@ -1,0 +1,417 @@
+/* ==========================================
+   AUTHENTIFICATION & MODALS
+   Sécurité par site - Design Awwwards
+   ========================================== */
+
+/* Modal Overlay */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(29, 47, 35, 0.6);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Modal Container */
+.modal {
+    background: var(--sv-white);
+    border-radius: var(--radius-xl);
+    width: 90%;
+    max-width: 420px;
+    box-shadow: var(--shadow-xl);
+    transform: translateY(20px) scale(0.98);
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    overflow: hidden;
+}
+
+.modal-overlay.active .modal {
+    transform: translateY(0) scale(1);
+}
+
+/* Modal Header */
+.modal-header {
+    color: var(--sv-white);
+    padding: var(--space-xl);
+    text-align: center;
+    position: relative;
+}
+
+/* Header pour Site (Audit) - Vert */
+.modal-header.site {
+    background: linear-gradient(135deg, var(--sv-green-500) 0%, var(--sv-green-600) 100%);
+}
+
+/* Header pour Admin (Dashboard) - Terracotta */
+.modal-header.admin {
+    background: linear-gradient(135deg, var(--sv-terracotta-500) 0%, var(--sv-terracotta-600) 100%);
+}
+
+.modal-icon-wrapper {
+    width: 64px;
+    height: 64px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto var(--space-md);
+    backdrop-filter: blur(4px);
+}
+
+.modal-header h3 {
+    font-family: var(--font-display);
+    font-size: 24px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.modal-site-name {
+    font-size: 16px;
+    opacity: 0.9;
+    margin-top: var(--space-sm);
+    font-weight: 500;
+}
+
+/* Modal Body */
+.modal-body {
+    padding: var(--space-xl);
+}
+
+.modal-info {
+    text-align: center;
+    color: var(--sv-gray-600);
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: var(--space-lg);
+}
+
+.password-input-wrapper {
+    position: relative;
+}
+
+.password-input-wrapper input {
+    width: 100%;
+    padding: var(--space-md) var(--space-lg);
+    padding-left: 44px;
+    border: 2px solid var(--sv-beige-300);
+    border-radius: var(--radius-lg);
+    font-size: 16px;
+    font-family: var(--font-body);
+    transition: all 0.2s ease;
+    background: var(--sv-beige-100);
+}
+
+.password-input-wrapper input:focus {
+    outline: none;
+    border-color: var(--sv-green-400);
+    background: var(--sv-white);
+    box-shadow: 0 0 0 4px rgba(30, 77, 43, 0.1);
+}
+
+.password-input-wrapper .input-icon {
+    position: absolute;
+    left: var(--space-md);
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+    opacity: 0.5;
+}
+
+.password-error {
+    display: block;
+    color: var(--sv-danger);
+    font-size: 13px;
+    margin-top: var(--space-sm);
+    min-height: 20px;
+    text-align: center;
+}
+
+/* Modal Footer */
+.modal-footer {
+    display: flex;
+    gap: var(--space-md);
+    padding: 0 var(--space-xl) var(--space-xl);
+}
+
+.btn-modal-secondary,
+.btn-modal-primary {
+    flex: 1;
+    padding: var(--space-md) var(--space-lg);
+    border-radius: var(--radius-full);
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-modal-secondary {
+    background: var(--sv-beige-200);
+    color: var(--sv-gray-600);
+    border: none;
+}
+
+.btn-modal-secondary:hover {
+    background: var(--sv-beige-300);
+    color: var(--sv-dark);
+}
+
+.btn-modal-primary {
+    background: var(--sv-terracotta-500);
+    color: var(--sv-white);
+    border: none;
+}
+
+.btn-modal-primary:hover {
+    background: var(--sv-terracotta-400);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+/* Bouton Admin spécifique */
+.btn-modal-primary.admin {
+    background: var(--sv-terracotta-500);
+}
+
+.btn-modal-primary.admin:hover {
+    background: var(--sv-terracotta-400);
+}
+
+/* ==========================================
+   SITE CARDS - ACTIONS
+   ========================================== */
+
+.site-card {
+    position: relative;
+}
+
+.site-card-actions {
+    display: flex;
+    gap: var(--space-xs);
+    margin-top: var(--space-md);
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+}
+
+.site-card:hover .site-card-actions {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.btn-card-action {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-sm);
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-card-action.view {
+    background: var(--sv-green-50);
+    color: var(--sv-green-500);
+}
+
+.btn-card-action.view:hover {
+    background: var(--sv-green-500);
+    color: var(--sv-white);
+}
+
+.btn-card-action.edit {
+    background: var(--sv-terracotta-50);
+    color: var(--sv-terracotta-500);
+}
+
+.btn-card-action.edit:hover {
+    background: var(--sv-terracotta-500);
+    color: var(--sv-white);
+}
+
+/* ==========================================
+   CRITERIA FORM - IMPROVEMENTS
+   ========================================== */
+
+.criteria-item.bloquant {
+    background: linear-gradient(90deg, #FDF2F2 0%, var(--sv-beige-100) 100%);
+    border-left-width: 6px;
+}
+
+.badge-bloquant {
+    display: inline-block;
+    background: var(--sv-danger);
+    color: white;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: var(--radius-sm);
+    margin-left: var(--space-sm);
+}
+
+.criteria-priority-badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.criteria-btn {
+    position: relative;
+    overflow: hidden;
+}
+
+.criteria-btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s, height 0.3s;
+}
+
+.criteria-btn:active::after {
+    width: 100px;
+    height: 100px;
+}
+
+/* ==========================================
+   ANIMATIONS
+   ========================================== */
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-5px); }
+    40%, 80% { transform: translateX(5px); }
+}
+
+.shake {
+    animation: shake 0.5s ease;
+}
+
+@keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(212, 132, 95, 0.4); }
+    50% { box-shadow: 0 0 0 10px rgba(212, 132, 95, 0); }
+}
+
+.btn-modal-primary:focus {
+    animation: pulse 1.5s infinite;
+}
+
+/* ==========================================
+   LOADING STATE
+   ========================================== */
+
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(253, 252, 249, 0.9);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+}
+
+.spinner {
+    width: 48px;
+    height: 48px;
+    border: 4px solid var(--sv-beige-300);
+    border-top-color: var(--sv-green-500);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.loading-text {
+    margin-top: var(--space-md);
+    color: var(--sv-gray-600);
+    font-size: 14px;
+}
+
+/* ==========================================
+   TOAST NOTIFICATIONS
+   ========================================== */
+
+.toast {
+    position: fixed;
+    bottom: var(--space-xl);
+    right: var(--space-xl);
+    background: var(--sv-dark);
+    color: var(--sv-white);
+    padding: var(--space-md) var(--space-lg);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    transform: translateY(100px);
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    z-index: 99999;
+}
+
+.toast.show {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.toast-icon {
+    width: 24px;
+    height: 24px;
+    background: var(--sv-success);
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .modal {
+        width: 95%;
+        margin: var(--space-md);
+    }
+    
+    .modal-footer {
+        flex-direction: column;
+    }
+    
+    .site-card-actions {
+        opacity: 1;
+        transform: none;
+    }
+    
+    .toast {
+        left: var(--space-md);
+        right: var(--space-md);
+        bottom: var(--space-md);
+    }
+}
