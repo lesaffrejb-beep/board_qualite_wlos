@@ -1,0 +1,10 @@
+# Fichiers Excel sensibles (données d'audit)
+*.xlsx
+*.xls
+
+# Fichiers système
+.DS_Store
+
+# Fichiers d'environnement
+.env
+.env.local
