@@ -421,11 +421,7 @@ const CRITERES_DATA = {
         { code: "AFF-19", text: "Le plan du site est affiché.", priorite: "P2", poids: 1 },
         { code: "AFF-20", text: "Les consignes de tri sont visibles.", priorite: "P2", poids: 1 },
         { code: "AFF-21", text: "Les informations sur la réglementation locale sont affichées.", priorite: "P3", poids: 0 },
-        { code: "AFF-22", text: "Registre sécurité incendie.", priorite: "P1", poids: 3 },
-        { code: "AFF-23", text: "Les procédures d'urgence sont affichées.", priorite: "P1", poids: 2 },
-        { code: "AFF-24", text: "Les contacts utiles sont disponibles.", priorite: "P2", poids: 1 },
-        { code: "AFF-25", text: "La signalétique extérieure est visible.", priorite: "P2", poids: 1 },
-        { code: "AFF-26", text: "Registre sécurité incendie.", priorite: "P1", poids: 3 }
+        { code: "AFF-22", text: "Registre sécurité incendie.", priorite: "P1", poids: 3 }
     ],
     EXP: [
         { code: "EXP-1", text: "L'accueil est chaleureux et personnalisé.", priorite: "P1", poids: 3 },
