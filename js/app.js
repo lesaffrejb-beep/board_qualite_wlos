@@ -31,7 +31,7 @@
     
     function initSupabase() {
         if (window.supabase && CONFIG.SUPABASE_KEY) {
-            supabase = window.supabase.createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_ANON_KEY);
+            supabase = window.supabase.createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_KEY);
             console.log('✅ Supabase connecté');
             return true;
         }
