@@ -14,8 +14,8 @@
         // Récupérer depuis les variables d'environnement
         SUPABASE_URL: window.ENV?.VITE_SUPABASE_URL || 'https://ydfgueqasslzhdbvermu.supabase.co',
         SUPABASE_KEY: window.ENV?.VITE_SUPABASE_ANON_KEY || '',
-        ADMIN_PASSWORD: window.ENV?.VITE_ADMIN_PASSWORD || 'admin',
-        SITE_PASSWORD: window.ENV?.VITE_SITE_PASSWORD || 'admin',
+        ADMIN_PASSWORD: (window.ENV && window.ENV.VITE_ADMIN_PASSWORD) || 'admin',
+        SITE_PASSWORD: (window.ENV && window.ENV.VITE_SITE_PASSWORD) || 'admin',
         
         // Thèmes dans l'ordre
         THEMES_ORDER: ['SEC', 'AFF', 'EXP', 'QUA', 'IMA', 'RH', 'RES', 'SLO'],
