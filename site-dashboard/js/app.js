@@ -13,14 +13,22 @@
     const state = {
         selectedSite: null, // null = tous les sites
         isAuthenticated: false,
-        currentSection: 'overview'
+        currentSection: 'overview',
+        inputMode: false,
+        currentTheme: 'SEC',
+        auditData: {}, // Stockage des réponses du formulaire
+        currentThemeIndex: 0
     };
+
+    // Ordre des thèmes
+    const THEMES_ORDER = ['SEC', 'AFF', 'EXP', 'QUA', 'IMA', 'RH', 'RES', 'SLO'];
 
     // DOM Elements
     const elements = {
         // Screens
         screenForm: document.getElementById('screen-form'),
         screenDashboard: document.getElementById('screen-dashboard'),
+        screenInput: document.getElementById('screen-input'),
 
         // Form elements
         siteGrid: document.getElementById('site-grid'),
@@ -30,6 +38,18 @@
         selectedBloquants: document.getElementById('selected-bloquants'),
         selectedRang: document.getElementById('selected-rang'),
         btnViewDashboard: document.getElementById('btn-view-dashboard'),
+        btnNewAudit: document.getElementById('btn-new-audit'),
+
+        // Input elements
+        inputSiteName: document.getElementById('input-site-name'),
+        btnCloseInput: document.getElementById('btn-close-input'),
+        criteriaForm: document.getElementById('criteria-form'),
+        themeTabs: document.querySelectorAll('.theme-tab'),
+        btnPrevTheme: document.getElementById('btn-prev-theme'),
+        btnNextTheme: document.getElementById('btn-next-theme'),
+        btnSaveDraft: document.getElementById('btn-save-draft'),
+        progressValue: document.getElementById('progress-value'),
+        progressFill: document.getElementById('progress-fill'),
 
         // Dashboard elements
         blurOverlay: document.getElementById('blur-overlay'),
@@ -66,9 +86,35 @@
      * Initialize the application
      */
     function init() {
+        // Load saved audit data from localStorage
+        loadAuditData();
+        
         renderSiteGrid();
         setupEventListeners();
         renderDashboard();
+        updateInputProgress();
+    }
+
+    /**
+     * Load audit data from localStorage
+     */
+    function loadAuditData() {
+        const saved = localStorage.getItem('slowVillageAuditData');
+        if (saved) {
+            try {
+                state.auditData = JSON.parse(saved);
+            } catch (e) {
+                console.error('Error loading audit data:', e);
+                state.auditData = {};
+            }
+        }
+    }
+
+    /**
+     * Save audit data to localStorage
+     */
+    function saveAuditData() {
+        localStorage.setItem('slowVillageAuditData', JSON.stringify(state.auditData));
     }
 
     /**
@@ -138,8 +184,11 @@
         // Update info panel
         updateSelectedInfo(state.selectedSite);
 
-        // Enable button
+        // Enable buttons
         elements.btnViewDashboard.disabled = false;
+        if (elements.btnNewAudit) {
+            elements.btnNewAudit.disabled = false;
+        }
     }
 
     /**
@@ -171,6 +220,55 @@
             showDashboard();
         });
 
+        // New audit button
+        if (elements.btnNewAudit) {
+            elements.btnNewAudit.addEventListener('click', () => {
+                showInputScreen();
+            });
+        }
+
+        // Close input screen
+        if (elements.btnCloseInput) {
+            elements.btnCloseInput.addEventListener('click', () => {
+                showForm();
+            });
+        }
+
+        // Theme tabs
+        elements.themeTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const theme = tab.dataset.theme;
+                switchTheme(theme);
+            });
+        });
+
+        // Prev/Next theme buttons
+        if (elements.btnPrevTheme) {
+            elements.btnPrevTheme.addEventListener('click', () => {
+                const currentIndex = THEMES_ORDER.indexOf(state.currentTheme);
+                if (currentIndex > 0) {
+                    switchTheme(THEMES_ORDER[currentIndex - 1]);
+                }
+            });
+        }
+
+        if (elements.btnNextTheme) {
+            elements.btnNextTheme.addEventListener('click', () => {
+                const currentIndex = THEMES_ORDER.indexOf(state.currentTheme);
+                if (currentIndex < THEMES_ORDER.length - 1) {
+                    switchTheme(THEMES_ORDER[currentIndex + 1]);
+                }
+            });
+        }
+
+        // Save draft
+        if (elements.btnSaveDraft) {
+            elements.btnSaveDraft.addEventListener('click', () => {
+                saveAuditData();
+                showToast('Brouillon enregistré');
+            });
+        }
+
         // Password unlock
         elements.btnUnlock.addEventListener('click', attemptUnlock);
         elements.passwordInput.addEventListener('keypress', (e) => {
@@ -198,10 +296,226 @@
     }
 
     /**
+     * Show input screen
+     */
+    function showInputScreen() {
+        if (!state.selectedSite) {
+            showToast('Veuillez sélectionner un site spécifique pour l\'audit');
+            return;
+        }
+
+        elements.screenForm.classList.remove('active');
+        elements.screenInput.classList.add('active');
+        
+        // Update site name in input screen
+        if (elements.inputSiteName) {
+            elements.inputSiteName.textContent = state.selectedSite.nom;
+        }
+
+        // Render criteria for current theme
+        renderCriteriaForm();
+        updateInputProgress();
+        updateThemeTabsProgress();
+    }
+
+    /**
+     * Switch theme in input screen
+     */
+    function switchTheme(theme) {
+        state.currentTheme = theme;
+        
+        // Update tabs UI
+        elements.themeTabs.forEach(tab => {
+            tab.classList.toggle('active', tab.dataset.theme === theme);
+        });
+
+        // Update prev/next buttons
+        const currentIndex = THEMES_ORDER.indexOf(theme);
+        if (elements.btnPrevTheme) {
+            elements.btnPrevTheme.disabled = currentIndex === 0;
+        }
+        if (elements.btnNextTheme) {
+            elements.btnNextTheme.textContent = currentIndex === THEMES_ORDER.length - 1 
+                ? 'Terminer l\'audit' 
+                : 'Thème suivant';
+        }
+
+        renderCriteriaForm();
+    }
+
+    /**
+     * Render criteria form for current theme
+     */
+    function renderCriteriaForm() {
+        const criteria = data.criteres[state.currentTheme];
+        const siteKey = state.selectedSite ? state.selectedSite.id : 'all';
+        
+        let html = `
+            <div class="criteria-header">
+                <h2 class="criteria-theme-title">${data.themes[state.currentTheme].nom}</h2>
+                <span class="criteria-count">${criteria.length} critères</span>
+            </div>
+            <div class="criteria-list">
+        `;
+
+        criteria.forEach((crit, index) => {
+            const key = `${siteKey}_${state.currentTheme}_${crit.code}`;
+            const savedStatus = state.auditData[key] || null;
+            
+            html += `
+                <div class="criteria-item priority-${crit.priorite.toLowerCase()}">
+                    <span class="criteria-priority">${crit.priorite}</span>
+                    <div class="criteria-content">
+                        <div class="criteria-code">${crit.code}</div>
+                        <div class="criteria-text">${crit.text}</div>
+                        ${crit.poids > 0 ? `<div class="criteria-weight">Poids: ${crit.poids}</div>` : ''}
+                    </div>
+                    <div class="criteria-actions">
+                        <button class="criteria-btn ${savedStatus === 'C' ? 'selected' : ''}" 
+                                data-code="${crit.code}" data-status="C">Conforme</button>
+                        <button class="criteria-btn nc ${savedStatus === 'NC' ? 'selected' : ''}" 
+                                data-code="${crit.code}" data-status="NC">Non conforme</button>
+                        <button class="criteria-btn ec ${savedStatus === 'EC' ? 'selected' : ''}" 
+                                data-code="${crit.code}" data-status="EC">En cours</button>
+                        <button class="criteria-btn ${savedStatus === 'NA' ? 'selected' : ''}" 
+                                data-code="${crit.code}" data-status="NA">N/A</button>
+                    </div>
+                </div>
+            `;
+        });
+
+        html += '</div>';
+        elements.criteriaForm.innerHTML = html;
+
+        // Add click listeners to criteria buttons
+        document.querySelectorAll('.criteria-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const code = btn.dataset.code;
+                const status = btn.dataset.status;
+                setCriteriaStatus(code, status);
+                
+                // Update UI
+                const buttons = btn.parentElement.querySelectorAll('.criteria-btn');
+                buttons.forEach(b => b.classList.remove('selected'));
+                btn.classList.add('selected');
+                
+                updateInputProgress();
+                updateThemeTabsProgress();
+            });
+        });
+    }
+
+    /**
+     * Set criteria status
+     */
+    function setCriteriaStatus(code, status) {
+        const siteKey = state.selectedSite ? state.selectedSite.id : 'all';
+        const key = `${siteKey}_${state.currentTheme}_${code}`;
+        state.auditData[key] = status;
+        
+        // Auto-save after each selection
+        saveAuditData();
+    }
+
+    /**
+     * Update input progress
+     */
+    function updateInputProgress() {
+        const siteKey = state.selectedSite ? state.selectedSite.id : 'all';
+        let total = 0;
+        let completed = 0;
+
+        THEMES_ORDER.forEach(theme => {
+            const criteria = data.criteres[theme];
+            criteria.forEach(crit => {
+                total++;
+                const key = `${siteKey}_${theme}_${crit.code}`;
+                if (state.auditData[key]) {
+                    completed++;
+                }
+            });
+        });
+
+        const percent = total > 0 ? Math.round((completed / total) * 100) : 0;
+        
+        if (elements.progressValue) {
+            elements.progressValue.textContent = percent + '%';
+        }
+        if (elements.progressFill) {
+            elements.progressFill.style.width = percent + '%';
+        }
+    }
+
+    /**
+     * Update theme tabs progress indicators
+     */
+    function updateThemeTabsProgress() {
+        const siteKey = state.selectedSite ? state.selectedSite.id : 'all';
+
+        elements.themeTabs.forEach(tab => {
+            const theme = tab.dataset.theme;
+            const criteria = data.criteres[theme];
+            let completed = 0;
+
+            criteria.forEach(crit => {
+                const key = `${siteKey}_${theme}_${crit.code}`;
+                if (state.auditData[key]) {
+                    completed++;
+                }
+            });
+
+            const progressSpan = tab.querySelector('.tab-progress');
+            if (progressSpan) {
+                progressSpan.textContent = `${completed}/${criteria.length}`;
+            }
+
+            // Mark as completed if all criteria answered
+            if (completed === criteria.length && criteria.length > 0) {
+                tab.classList.add('completed');
+            } else {
+                tab.classList.remove('completed');
+            }
+        });
+    }
+
+    /**
+     * Show toast notification
+     */
+    function showToast(message) {
+        // Remove existing toast
+        const existing = document.querySelector('.toast');
+        if (existing) {
+            existing.remove();
+        }
+
+        const toast = document.createElement('div');
+        toast.className = 'toast';
+        toast.innerHTML = `
+            <div class="toast-icon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3">
+                    <polyline points="20,6 9,17 4,12"/>
+                </svg>
+            </div>
+            <span>${message}</span>
+        `;
+        document.body.appendChild(toast);
+
+        // Show
+        setTimeout(() => toast.classList.add('show'), 10);
+
+        // Hide after 3s
+        setTimeout(() => {
+            toast.classList.remove('show');
+            setTimeout(() => toast.remove(), 300);
+        }, 3000);
+    }
+
+    /**
      * Show dashboard screen
      */
     function showDashboard() {
         elements.screenForm.classList.remove('active');
+        elements.screenInput.classList.remove('active');
         elements.screenDashboard.classList.add('active');
 
         // Update current site name
@@ -227,6 +541,7 @@
      */
     function showForm() {
         elements.screenDashboard.classList.remove('active');
+        elements.screenInput.classList.remove('active');
         elements.screenForm.classList.add('active');
     }
 

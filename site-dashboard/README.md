@@ -2,58 +2,118 @@
 
 Tableau de bord interactif pour le suivi des audits qualité des sites Slow Village.
 
+## Fonctionnalités
+
+### 3 Écrans principaux
+
+1. **Écran Sélection** (`#screen-form`)
+   - Sélection du site à consulter
+   - Affichage des scores de conformité par site
+   - Accès au tableau de bord ou au formulaire de saisie
+
+2. **Écran Saisie Audit** (`#screen-input`) - **NOUVEAU**
+   - Formulaire de saisie des critères par thème
+   - 8 thèmes : SEC, AFF, EXP, QUA, IMA, RH, RES, SLO
+   - Navigation par onglets entre les thèmes
+   - Progression en temps réel
+   - Sauvegarde automatique dans localStorage
+   - Statuts possibles : Conforme, Non conforme, En cours, N/A
+
+3. **Écran Dashboard** (`#screen-dashboard`)
+   - Vue d'ensemble avec KPIs
+   - Protection par mot de passe (admin)
+   - Graphiques de conformité
+   - Classement des sites
+   - Matrice de risque
+   - Points critiques
+
 ## Structure du projet
 
 ```
 site-dashboard/
-├── index.html          # Page principale avec 2 écrans
+├── index.html          # Application complète (3 écrans)
 ├── css/
-│   └── style.css       # Styles Awwwards (Design Tokens Slow Village)
+│   └── style.css       # Styles Awwwards + formulaire saisie
 ├── js/
-│   ├── data.js         # Données extraites des Excel (prêt pour Supabase)
-│   └── app.js          # Application JavaScript
-├── assets/             # Images et ressources
+│   ├── data.js         # Données des 11 sites + critères
+│   └── app.js          # Logique application
 └── README.md           # Ce fichier
 ```
 
-## Fonctionnalités
+## Utilisation
 
-### Écran 1 : Sélection du site
-- Grille de sélection des 11 sites + option "Tous les sites"
-- Aperçu des métriques clés du site sélectionné
-- Design card avec score de conformité et classement
+### Lancer l'application
 
-### Écran 2 : Dashboard
-- **Protégé par mot de passe** : `admin`
-- Dashboard flouté par défaut
-- Popup de connexion élégante
-- Accès complet après authentification
-
-### Composants du Dashboard
-- **KPIs** : Conformité, Bloquants, Sites, Critères
-- **Graphique** : Conformité par site (barres horizontales)
-- **Classement** : Top 11 des sites avec score global
-- **Thèmes** : Performance par thème (8 thèmes)
-- **Alertes** : Points critiques P1 majeurs
-- **Matrice de risque** : Répartition P1/P2/P3 par statut
-
-## Démarrage rapide
-
-### Option 1 : Serveur Python
 ```bash
 cd site-dashboard
 python3 -m http.server 8080
 ```
-Ouvrir http://localhost:8080
 
-### Option 2 : Ouverture directe
-Double-cliquer sur `index.html` (certaines fonctionnalités peuvent être limitées)
+Ouvrir : http://localhost:8080
+
+### Workflow
+
+1. **Consulter le dashboard**
+   - Sélectionnez un site (ou "Tous les sites")
+   - Cliquez sur "Accéder au tableau de bord"
+   - Entrez le mot de passe : `admin`
+   - Explorez les données
+
+2. **Saisir un nouvel audit**
+   - Sélectionnez un site spécifique
+   - Cliquez sur "Nouvel audit"
+   - Remplissez les critères par thème
+   - La progression est sauvegardée automatiquement
+   - Revenez plus tard, vos données sont conservées
+
+## Données
+
+### Sites (11)
+1. L'Orée de l'Océan (Rank #1)
+2. Anduze
+3. Séveilles
+4. Saint Martin de Ré 2026
+5. La Roque sur Cèze
+6. Saint Cybranet
+7. Saint Martin de Ré
+8. Biscarrosse Lac
+9. Marennes Oléron
+10. Pornic 2026
+11. Les Ponts de Cé
+
+### Thèmes (8)
+- **SEC** : Sécurité (33 critères, P1 critique)
+- **AFF** : Affichage & Communication
+- **EXP** : Expérience Client
+- **QUA** : Qualité Opérationnelle
+- **IMA** : Image & Marque
+- **RH** : Ressources Humaines
+- **RES** : Responsabilité Environnementale
+- **SLO** : Slow Village Spirit
+
+### Statuts de critères
+- **C** : Conforme (vert)
+- **NC** : Non conforme (rouge)
+- **EC** : En cours (orange)
+- **NA** : Non applicable (gris)
+
+## Design System
+
+### Couleurs
+- Beige 100: `#FDFCF9`
+- Vert forêt: `#1E4D2B`
+- Terre cuite: `#D4845F`
+- Succès: `#4A7C59`
+- Danger: `#B85450`
+
+### Typographie
+- Display: Cormorant Garamond
+- Body: Inter
 
 ## Migration vers Supabase
 
-Les données sont actuellement en JavaScript statique (`js/data.js`). Pour migrer vers Supabase :
+Pour connecter à Supabase, modifiez `js/data.js` :
 
-1. Configurer les variables dans `data.js` :
 ```javascript
 const SUPABASE_CONFIG = {
     url: 'YOUR_SUPABASE_URL',
@@ -62,27 +122,18 @@ const SUPABASE_CONFIG = {
 };
 ```
 
-2. Le schéma SQL est disponible dans `../v2-prototype/supabase-schema.sql`
+Puis remplacez les appels aux données locales par des appels API Supabase.
 
-3. Remplacer les constantes par des appels API Supabase
+## Stockage local
 
-## Design System
+Les données de saisie sont stockées dans le `localStorage` du navigateur sous la clé `slowVillageAuditData`.
 
-Le design suit les tokens Slow Village :
-- **Couleurs** : Beiges, Verts forêt, Terre cuite
-- **Typographie** : Cormorant Garamond (titres) + Inter (corps)
-- **Composants** : Cards, Badges, Progress bars, Tables
-
-Voir `../DESIGN_TOKENS_SlowVillage.md` pour la référence complète.
-
-## Données
-
-Basé sur 11 fichiers Excel d'audit :
-- 17 083 critères analysés
-- 8 thèmes d'audit (AFF, EXP, IMA, QUA, RES, RH, SEC, SLO)
-- Priorités P0-P3
-- Statuts : Conforme, Non conforme, En cours, N/A
+Pour réinitialiser :
+```javascript
+localStorage.removeItem('slowVillageAuditData');
+```
 
 ---
 
-*Slow Village - Janvier 2026*
+**Version** : 1.1.0  
+**Date** : Janvier 2026
